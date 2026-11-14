@@ -4,141 +4,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UCL LIVE | Match Centre</title>
+<title>UCL LIVE | Champions League</title>
 
 <style>
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
+  margin: 0;
   font-family: Arial, sans-serif;
-  background: #071326;
+  background: #070f2b;
   color: white;
 }
 
 header {
-  background: #10264a;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-  color: #ffffff;
-}
-
-.logo span {
-  color: #64a5ff;
-}
-
-nav {
-  display: flex;
-  gap: 18px;
-  padding: 15px;
-  background: #0c1e39;
-  justify-content: center;
-}
-
-nav a {
-  color: #c5d5ef;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-nav a:hover {
-  color: white;
-}
-
-.hero {
+  background: linear-gradient(135deg,#101d50,#172c70);
+  padding: 25px 15px;
   text-align: center;
-  padding: 35px 15px;
-  background: linear-gradient(135deg, #123b78, #071326);
+  border-bottom: 2px solid #e4c46a;
 }
 
-.hero h1 {
-  font-size: 30px;
-  margin-bottom: 10px;
+header h1 {
+  color: #f5d77b;
+  font-size: 32px;
+  margin: 0;
 }
 
-.hero p {
-  color: #b8c9e6;
+header p {
+  color: #cbd5f0;
 }
 
 .container {
-  max-width: 750px;
+  max-width: 850px;
   margin: auto;
   padding: 20px;
 }
 
 .section-title {
-  margin: 15px 0;
-  font-size: 20px;
-}
-
-.match {
-  background: #14294a;
-  border: 1px solid #28446c;
-  padding: 20px;
-  border-radius: 14px;
-  margin-bottom: 15px;
-}
-
-.match-top {
-  display: flex;
-  justify-content: space-between;
-  color: #9db9e3;
-  font-size: 12px;
+  color: #f5d77b;
   margin-bottom: 18px;
 }
 
-.team {
-  display: flex;
-  justify-content: space-between;
-  margin: 15px 0;
-  font-size: 17px;
-  font-weight: bold;
-}
-
-.score {
-  font-size: 23px;
+.match {
+  background: #14234b;
+  border: 1px solid #344879;
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 15px;
 }
 
 .status {
-  color: #50e69a;
-  font-size: 12px;
-  margin-top: 12px;
+  color: #f5d77b;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 
-.details {
-  display: none;
-  border-top: 1px solid #365075;
+.teams {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+}
+
+.team {
+  flex: 1;
+  text-align: center;
+}
+
+.score {
+  color: #f5d77b;
+  font-size: 25px;
+  white-space: nowrap;
+}
+
+.match-info {
+  text-align: center;
+  color: #aebcdb;
+  font-size: 12px;
   margin-top: 15px;
-  padding-top: 15px;
-  color: #c5d5ef;
-  font-size: 13px;
-  line-height: 1.8;
 }
 
 button {
-  margin-top: 15px;
-  padding: 10px 16px;
-  background: #347de0;
-  color: white;
+  background: #f5d77b;
+  color: #101a3d;
   border: none;
   border-radius: 7px;
+  padding: 12px 18px;
+  font-weight: bold;
   cursor: pointer;
+}
+
+button:hover {
+  background: #ffe69b;
+}
+
+.message {
+  text-align: center;
+  color: #cbd5f0;
+  padding: 25px 10px;
+}
+
+.updated {
+  color: #9eafd2;
+  font-size: 12px;
+  margin-top: 15px;
 }
 
 footer {
   text-align: center;
+  color: #8999bd;
   padding: 25px;
-  color: #8ca5c9;
   font-size: 12px;
 }
 </style>
@@ -147,100 +125,170 @@ footer {
 <body>
 
 <header>
-  <div class="logo">UCL <span>LIVE</span></div>
-  <div>⚽</div>
+  <h1>⭐ UCL LIVE</h1>
+  <p>UEFA Champions League Match Centre</p>
 </header>
 
-<nav>
-  <a href="#live">Live</a>
-  <a href="#fixtures">Fixtures</a>
-  <a href="#results">Results</a>
-</nav>
+<main class="container">
 
-<section class="hero">
-  <h1>UEFA CHAMPIONS LEAGUE</h1>
-  <p>Every match. Every score. One place.</p>
-</section>
+  <h2 class="section-title">⚽ Match Centre</h2>
 
-<main class="container" id="live">
+  <div id="matches">
+    <p class="message">Loading matches...</p>
+  </div>
 
-  <h2 class="section-title">⚡ Match Centre</h2>
+  <button onclick="loadMatches()">↻ Refresh Scores</button>
 
-  <div id="matches"></div>
+  <p class="updated" id="updated">
+    Waiting for match data...
+  </p>
 
 </main>
 
 <footer>
-  UCL LIVE • Independent fan-made project
-  <br><br>
-  Not affiliated with UEFA.
+  UCL LIVE • All about Champions League football
 </footer>
 
 <script>
-const matches = [
-  {
-    home: "Real Madrid",
-    away: "Arsenal",
-    homeScore: 2,
-    awayScore: 1,
-    status: "DEMO",
-    time: "Sample match",
-    venue: "Demo Stadium"
-  },
-  {
-    home: "Barcelona",
-    away: "Bayern Munich",
-    homeScore: 0,
-    awayScore: 0,
-    status: "DEMO",
-    time: "Sample match",
-    venue: "Demo Arena"
+
+// ======================================
+// API SETTINGS
+// ======================================
+
+// Insert your football-data.org API token here.
+// WARNING: This token will be visible in a public repository.
+
+const API_TOKEN = "450acb00cf27c92f1c3b6eb6998b3dad";
+
+const API_URL =
+  "https://api.football-data.org/v4/competitions/CL/matches";
+
+// ======================================
+// LOAD CHAMPIONS LEAGUE MATCHES
+// ======================================
+
+async function loadMatches() {
+
+  const matchContainer =
+    document.getElementById("matches");
+
+  matchContainer.innerHTML =
+    '<p class="message">Loading Champions League matches...</p>';
+
+  try {
+
+    const response = await fetch(API_URL, {
+      headers: {
+        "X-Auth-Token": API_TOKEN
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error("API error: " + response.status);
+    }
+
+    const data = await response.json();
+
+    const matches = data.matches || [];
+
+    if (matches.length === 0) {
+      matchContainer.innerHTML =
+        '<p class="message">No matches available.</p>';
+      return;
+    }
+
+    matchContainer.innerHTML = "";
+
+    matches.forEach(match => {
+
+      const homeTeam =
+        match.homeTeam?.name || "Home Team";
+
+      const awayTeam =
+        match.awayTeam?.name || "Away Team";
+
+      const homeScore =
+        match.score?.fullTime?.home;
+
+      const awayScore =
+        match.score?.fullTime?.away;
+
+      let score = "VS";
+
+      if (
+        homeScore !== null &&
+        homeScore !== undefined &&
+        awayScore !== null &&
+        awayScore !== undefined
+      ) {
+        score = homeScore + " - " + awayScore;
+      }
+
+      const status = match.status || "SCHEDULED";
+
+      const kickoff = match.utcDate
+        ? new Date(match.utcDate).toLocaleString()
+        : "Time unavailable";
+
+      const card = document.createElement("div");
+      card.className = "match";
+
+      const statusElement = document.createElement("div");
+      statusElement.className = "status";
+      statusElement.textContent = status;
+
+      const teams = document.createElement("div");
+      teams.className = "teams";
+
+      const home = document.createElement("div");
+      home.className = "team";
+      home.textContent = homeTeam;
+
+      const scoreElement = document.createElement("div");
+      scoreElement.className = "score";
+      scoreElement.textContent = score;
+
+      const away = document.createElement("div");
+      away.className = "team";
+      away.textContent = awayTeam;
+
+      teams.append(home, scoreElement, away);
+
+      const info = document.createElement("div");
+      info.className = "match-info";
+      info.textContent = kickoff;
+
+      card.append(statusElement, teams, info);
+
+      matchContainer.appendChild(card);
+
+    });
+
+    document.getElementById("updated").textContent =
+      "Last updated: " + new Date().toLocaleTimeString();
+
+  } catch (error) {
+
+    matchContainer.innerHTML =
+      '<p class="message">Unable to load matches. Please check your API token and connection.</p>';
+
+    console.error(error);
+
+    document.getElementById("updated").textContent =
+      "Could not update scores.";
+
   }
-];
 
-const matchContainer = document.getElementById("matches");
-
-matches.forEach((match, index) => {
-  matchContainer.innerHTML += `
-    <div class="match">
-      <div class="match-top">
-        <span>UEFA CHAMPIONS LEAGUE</span>
-        <span>${match.status}</span>
-      </div>
-
-      <div class="team">
-        <span>${match.home}</span>
-        <span class="score">${match.homeScore}</span>
-      </div>
-
-      <div class="team">
-        <span>${match.away}</span>
-        <span class="score">${match.awayScore}</span>
-      </div>
-
-      <div class="status">${match.time}</div>
-
-      <button onclick="showDetails(${index})">
-        Match details
-      </button>
-
-      <div class="details" id="details-${index}">
-        Home: ${match.home}<br>
-        Away: ${match.away}<br>
-        Venue: ${match.venue}<br>
-        Status: ${match.status}
-      </div>
-    </div>
-  `;
-});
-
-function showDetails(index) {
-  const details = document.getElementById("details-" + index);
-
-  details.style.display =
-    details.style.display === "block" ? "none" : "block";
 }
+
+// Initial loading
+loadMatches();
+
+// Refresh every 60 seconds
+setInterval(loadMatches, 60000);
+
 </script>
 
 </body>
-</html>
+  </html>
+    

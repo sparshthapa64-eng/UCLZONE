@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UCL LIVE | Match Centre</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #071326;
+  color: white;
+}
+
+header {
+  background: #10264a;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.logo span {
+  color: #64a5ff;
+}
+
+nav {
+  display: flex;
+  gap: 18px;
+  padding: 15px;
+  background: #0c1e39;
+  justify-content: center;
+}
+
+nav a {
+  color: #c5d5ef;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: white;
+}
+
+.hero {
+  text-align: center;
+  padding: 35px 15px;
+  background: linear-gradient(135deg, #123b78, #071326);
+}
+
+.hero h1 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  color: #b8c9e6;
+}
+
+.container {
+  max-width: 750px;
+  margin: auto;
+  padding: 20px;
+}
+
+.section-title {
+  margin: 15px 0;
+  font-size: 20px;
+}
+
+.match {
+  background: #14294a;
+  border: 1px solid #28446c;
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 15px;
+}
+
+.match-top {
+  display: flex;
+  justify-content: space-between;
+  color: #9db9e3;
+  font-size: 12px;
+  margin-bottom: 18px;
+}
+
+.team {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.score {
+  font-size: 23px;
+}
+
+.status {
+  color: #50e69a;
+  font-size: 12px;
+  margin-top: 12px;
+}
+
+.details {
+  display: none;
+  border-top: 1px solid #365075;
+  margin-top: 15px;
+  padding-top: 15px;
+  color: #c5d5ef;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px 16px;
+  background: #347de0;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #8ca5c9;
+  font-size: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">UCL <span>LIVE</span></div>
+  <div>⚽</div>
+</header>
+
+<nav>
+  <a href="#live">Live</a>
+  <a href="#fixtures">Fixtures</a>
+  <a href="#results">Results</a>
+</nav>
+
+<section class="hero">
+  <h1>UEFA CHAMPIONS LEAGUE</h1>
+  <p>Every match. Every score. One place.</p>
+</section>
+
+<main class="container" id="live">
+
+  <h2 class="section-title">⚡ Match Centre</h2>
+
+  <div id="matches"></div>
+
+</main>
+
+<footer>
+  UCL LIVE • Independent fan-made project
+  <br><br>
+  Not affiliated with UEFA.
+</footer>
+
+<script>
+const matches = [
+  {
+    home: "Real Madrid",
+    away: "Arsenal",
+    homeScore: 2,
+    awayScore: 1,
+    status: "DEMO",
+    time: "Sample match",
+    venue: "Demo Stadium"
+  },
+  {
+    home: "Barcelona",
+    away: "Bayern Munich",
+    homeScore: 0,
+    awayScore: 0,
+    status: "DEMO",
+    time: "Sample match",
+    venue: "Demo Arena"
+  }
+];
+
+const matchContainer = document.getElementById("matches");
+
+matches.forEach((match, index) => {
+  matchContainer.innerHTML += `
+    <div class="match">
+      <div class="match-top">
+        <span>UEFA CHAMPIONS LEAGUE</span>
+        <span>${match.status}</span>
+      </div>
+
+      <div class="team">
+        <span>${match.home}</span>
+        <span class="score">${match.homeScore}</span>
+      </div>
+
+      <div class="team">
+        <span>${match.away}</span>
+        <span class="score">${match.awayScore}</span>
+      </div>
+
+      <div class="status">${match.time}</div>
+
+      <button onclick="showDetails(${index})">
+        Match details
+      </button>
+
+      <div class="details" id="details-${index}">
+        Home: ${match.home}<br>
+        Away: ${match.away}<br>
+        Venue: ${match.venue}<br>
+        Status: ${match.status}
+      </div>
+    </div>
+  `;
+});
+
+function showDetails(index) {
+  const details = document.getElementById("details-" + index);
+
+  details.style.display =
+    details.style.display === "block" ? "none" : "block";
+}
+</script>
+
+</body>
+</html>
